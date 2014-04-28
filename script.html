@@ -1,0 +1,115 @@
+{{define "script"}}
+<!DOCTYPE html>
+<title>{{.Title}}</title>
+
+<style>
+body {
+	font-family: Georgia;
+}
+
+h1, #attribution, #draft-date {
+	text-align: center;
+}
+
+#script {
+	position: relative;
+	width: 7.5in;
+	margin: 0 auto;
+}
+
+.page-break {
+	margin-top: 10px;
+	page-break-after: always;
+}
+
+p {
+	position: relative;
+	width: 6in;
+}
+
+.line-action {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	font-style: italic;
+}
+
+.line-action .chunk-italic {
+	font-style: normal;
+}
+
+.line-speaker {
+	clear: both;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.line-parenthetical {
+	display: inline;
+	font-style: italic;
+}
+
+.line-parenthetical:before {
+	content: '(';
+}
+
+.line-parenthetical:after {
+	content: ')';
+}
+
+.line-dialogue {
+	display: inline;
+}
+
+.line-speaker:after {
+	content: '.';
+}
+
+.chunk-bold {
+	font-weight: bold;
+}
+
+.chunk-italic {
+	font-style: italic;
+}
+
+.chunk-underline {
+	text-decoration: underline;
+}
+
+.chunk-comment {
+	position: absolute;
+	width: 1.25in;
+	left: 6.25in;
+	border-left: 1px solid black;
+	padding-left: 0.5em;
+	margin-top: 3pt;
+	font-style: italic;
+	display: block;
+	font-size: 9pt;
+	line-height: 1;
+}
+
+.line-dialogue .chunk-comment {
+	margin-top: -11pt;
+}
+</style>
+
+<div id=script>
+	<h1>{{.Title}}</h1>
+	<div id=attribution>{{.Credit}} {{.Author}}</div>
+	<div id=draft-date>{{.DraftDate}}</div>
+
+	<div class=page-break></div>
+
+	<h1>{{.Title}}</h1>
+
+	{{range .Body}}
+	<p>
+		{{range .Lines}}
+		<span class="line-{{.Type}}">{{range .Chunks}}<span class="chunk {{range .Styles}}chunk-{{.}} {{end}}">{{.Content | Mdashes}}</span>{{end}}</span>
+		{{end}}
+	</p>
+	{{end}}
+</div>
+{{end}}
