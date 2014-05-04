@@ -7,14 +7,14 @@ body {
 	font-family: Georgia;
 }
 
-h1, #attribution, #draft-date {
-	text-align: center;
-}
-
 #script {
 	position: relative;
 	width: 7.5in;
 	margin: 0 auto;
+}
+
+h1, h2, #attribution, #draft-date {
+	text-align: center;
 }
 
 .page-break {
@@ -22,15 +22,39 @@ h1, #attribution, #draft-date {
 	page-break-after: always;
 }
 
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+#statistics {
+	width: 100%;
+	text-align: center;
+}
+
+#cast {
+	-moz-column-count: 2;
+}
+
+.castmember {
+	display: inline-block;
+	width: 200px;
+}
+
+.wordcount {
+	font-size: 10pt;
+}
+
 p {
 	position: relative;
 	width: 6in;
+	page-break-inside: avoid;
+	margin: 8pt 0;
 }
 
 .line-action {
 	display: block;
-	width: 80%;
-	margin: 0 auto;
+	margin-left: 0.5in;
 	font-style: italic;
 }
 
@@ -63,6 +87,11 @@ p {
 
 .line-speaker:after {
 	content: '.';
+}
+
+.chunk-indent-4 {
+	display: inline-block;
+	width: 0.5in;
 }
 
 .chunk-bold {
@@ -99,6 +128,20 @@ p {
 	<h1>{{.Title}}</h1>
 	<div id=attribution>{{.Credit}} {{.Author}}</div>
 	<div id=draft-date>{{.DraftDate}}</div>
+
+	<div class=page-break></div>
+
+	<h2>Cast</h2>
+	<ul id=statistics>
+		{{range $name, $value := .Statistics}}
+		<li>{{$value}} {{$name}}</li>
+		{{end}}
+	</ul>
+	<ul id=cast>
+		{{range .Cast}}
+		<li><span class=castmember>{{.Name}}</span> <span class=wordcount>({{.WordCount}} words)</span></li>
+		{{end}}
+	</ul>
 
 	<div class=page-break></div>
 
